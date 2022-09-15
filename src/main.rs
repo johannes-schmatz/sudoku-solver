@@ -835,11 +835,12 @@ fn main() {
 	//  S = Stuttgarter Zeitung,
 	//  J = Jeux,
 	//  F = _das ding vom papa_,
+	//  R = Die Rundschau,
 	// - number: the number that is written on the original, leading zeroes are replaced with _, the number is 3 digits long.
 	// - sub: the sub description, if not used (char = F) it's _. this is one char in length.
 	// sort alphabetically, only with the part in brackets. also note the tab after =.
 	//
-	let sudokus = [
+	let sudokus: Vec<&str> = vec![
 	//	"900380100000005007007006300,651900430070000205040800000,090700020403009071000003906 <F__0;_>", // solvable
 	//	"021000430000905000750020096,004702300200000001009801600,360010084000508000085000720 <J__0;1>", // solvable
 	//	"003000600025408390970000054,000732000000080000000591000,560000032094205780001000900 <J__0;2>", // solvable
@@ -859,6 +860,7 @@ fn main() {
 	//	"350090001000005400642000000,423000000580040003000003700,000900080000072304000051209 <J__1;7>",
 	//	"000000000805190000073406005,000000000014209670027508390,901680000056907003000000000 <J__1;8>",
 	//	"096370021100020004000004800,057030006014080002000000000,043610087700050009000002300 <J__1;9>",
+	//	"006458000002060350508001070,000579800760000010080006027,413690000000000105000802409 <R__1;_>", // solvable
 	//	"702003500500640000098010000,023000060010080050050000790,000050640000038005005700903 <S__0;M>", // solvable
 	//	"480001000905020000000000070,000037801007040600304580000,020000000000070308000300054 <S__0;S>", // solvable
 	//	"930000610600804000870000900,500900200000132000009007001,005000067000201004048000052 <S__1;M>", // solvable
@@ -882,7 +884,8 @@ fn main() {
 	}
 
 	if solve_times.len() != 0 {
-		let average = solve_times.iter().sum::<f64>() / solve_times.len() as f64;
-		println!("average time of solves: {:.6}ms", average);
+		let total_time = solve_times.iter().sum::<f64>();
+		let average = total_time / solve_times.len() as f64;
+		println!("average time of solves: {:.6}ms; total time of {} solves: {:.6}ms", average, solve_times.len(), total_time);
 	}
 }
